@@ -36,25 +36,28 @@ mongoClient.connect(mongodbURL)
         })
 
         // READ
-        app.get('/:location/:name', async (req, res) => {
-            const query = { name: req.params.name };
+        app.get('/:location/:id', async (req, res) => {
+            const ObjectID = require('mongodb').ObjectID;
+            const id = req.params.id;
+            const query = { _id: new ObjectID(id) };
             try {
                 const result = await database.collection(req.params.location).findOne(query);
-                console.log(`Found an item in the collection with the name '${query.name}':`);
+                console.log(`Found an item in the collection with the name '${query._id}':`);
                 res.send(result);
             } catch(err) {
-                console.log(`No item found with the name '${query.name}'`);
+                console.log(`No item found with the name '${query._id}'`);
                 res.send(err);
             }
         });
 
         //************ put ************ 
         // UPDATE
-        app.put('/:location/:name', async (req, res) => {
-            const query = { name: req.params.name };
-            const newName = req.body.name ?? req.params.name
+        app.put('/:location/:id', async (req, res) => {
+            const ObjectID = require('mongodb').ObjectID;
+            const id = req.params.id;
+            const query = { _id: new ObjectID(id) };
             const body = {
-                name: newName,
+                name: req.body.name,
                 quantity: req.body.quantity
             };
             try {
@@ -71,8 +74,6 @@ mongoClient.connect(mongodbURL)
         //************ post ************
         // CREATE
         app.post('/:location', async (req, res) => {
-            console.log(req.body.name)
-            console.log(req.body.quantity)
             const item = {
                 name: req.body.name,
                 quantity: req.body.quantity
@@ -89,14 +90,16 @@ mongoClient.connect(mongodbURL)
 
         //************ delete ************ 
         // DELETE
-        app.delete('/:location/:name', async (req, res) => {
-            const query = { name: req.params.name };
+        app.delete('/:location/:id', async (req, res) => {
+            const ObjectID = require('mongodb').ObjectID;
+            const id = req.params.id;
+            const query = { _id: new ObjectID(id) };
             try {
                 const result = await database.collection(req.params.location).remove(query);
-                console.log(`Deleted an item in the collection with the name '${query.name}':`);
+                console.log(`Deleted an item in the collection with the name '${query._id}':`);
                 res.send(result);
             } catch(err) {
-                console.log(`No item found with the name '${query.name}'`);
+                console.log(`No item found with the name '${query._id}'`);
                 res.send(err);
             }
         });

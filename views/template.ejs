@@ -262,6 +262,20 @@ $(document).ready(function(){
 		}
 	});
 });
+
+$(function() {
+	$('#editItemModal').on('show.bs.modal', function(e) {
+		let id = $(e.relatedTarget).data('id'); 
+    	$('#editItemButton').data('data-id', id);
+  	})
+})
+
+$(function() {
+	$('#deleteItemModal').on('show.bs.modal', function(e) {
+		let id = $(e.relatedTarget).data('id'); 
+    	$('#deleteItemButton').data('data-id', id);
+  	})
+})
 </script>
 </head>
 <body>
@@ -275,7 +289,7 @@ $(document).ready(function(){
 						<h2>Inventory Tracking Web App</h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>					
+						<a href="#addItemModal" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Item</span></a>					
 					</div>
 				</div>
 			</div>
@@ -296,14 +310,8 @@ $(document).ready(function(){
 							<td><%= items[i].name %></td>
 							<td><%= items[i].quantity %></td>
 							<td>
-								<a href="#editEmployeeModal" class="edit" data-toggle="modal" data-id="<%= items[i]._id %>"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-								<a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-								<script>
-									var selectedItem;
-									function myFunction(){
-										selectedItem = items[i]._id;
-									}
-								</script>
+								<a href="#editItemModal" class="edit" data-toggle="modal" data-id="<%= items[i]._id %>"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+								<a href="#deleteItemModal" class="delete" data-toggle="modal" data-id="<%= items[i]._id %>"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 							</td>
 						</tr>
 					<% } %>
@@ -313,7 +321,7 @@ $(document).ready(function(){
 	</div>        
 </div>
 <!-- Add Modal HTML -->
-<div id="addEmployeeModal" class="modal fade">
+<div id="addItemModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
@@ -340,7 +348,7 @@ $(document).ready(function(){
 	</div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+<div id="editItemModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
@@ -360,19 +368,19 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input id ="editItemButton" type="submit" class="btn btn-info" value="Save">
+					<input id ="editItemButton" type="submit" class="btn btn-info" value="Save" data-id="tt">
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
 <!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+<div id="deleteItemModal" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form>
 				<div class="modal-header">						
-					<h4 class="modal-title">Delete Employee</h4>
+					<h4 class="modal-title">Delete Item</h4>
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">					
@@ -381,7 +389,7 @@ $(document).ready(function(){
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
+					<input id ="deleteItemButton" type="submit" class="btn btn-danger" value="Delete">
 				</div>
 			</form>
 		</div>

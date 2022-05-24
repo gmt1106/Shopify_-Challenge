@@ -6,8 +6,12 @@ window.onload=function(){
     addNewItemButton.addEventListener('click', addNewItemButtonHandler);
 
     // edit item button 
-    const editNewItemButton = document.getElementById('editItemButton');
-    editNewItemButton.addEventListener('click', editNewItemButtonHandler);
+    const editItemButton = document.getElementById('editItemButton');
+    editItemButton.addEventListener('click', editItemButtonHandler);
+
+    // delete item button 
+    const deleteItemButton = document.getElementById('deleteItemButton');
+    deleteItemButton.addEventListener('click', deleteItemButtonHandler);
 }
 
 function addNewItemButtonHandler() {
@@ -41,12 +45,10 @@ function addNewItemButtonHandler() {
         });
 };
 
-function editNewItemButtonHandler(event) {
+function editItemButtonHandler() {
     console.log('The edit item button is clicked');
 
-    const originalName = selectedItem;
-    debugger;
-
+    const id = $(this).data('data-id');
     const name = document.getElementById('editItemName').value;
     const quantity = document.getElementById('editItemQuantity').value;
 
@@ -62,7 +64,31 @@ function editNewItemButtonHandler(event) {
     }
 
     // use fetch API to trigger a PUT request
-    fetch(document.location.pathname + '/' + name, options)
+    fetch(document.location.pathname + '/' + id, options)
+        .then(function(response) {
+        if(response.ok) {
+            console.log('The item is updated');
+            return;
+        }
+        throw new Error('Request failed.');
+        })
+        .catch(function(error) {
+        console.log(error);
+        });
+}
+
+function deleteItemButtonHandler() {
+    console.log('The delete item button is clicked');
+
+    const id = $(this).data('data-id');
+
+    const options = {
+        method: 'DELETE', 
+        headers: { 'Content-Type': 'application/json' },
+    }
+
+    // use fetch API to trigger a PUT request
+    fetch(document.location.pathname + '/' + id, options)
         .then(function(response) {
         if(response.ok) {
             console.log('The item is updated');
