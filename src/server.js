@@ -1,4 +1,3 @@
-
 // set up express
 const express = require('express');
 const app = express();
@@ -23,6 +22,18 @@ mongoClient.connect(mongodbURL)
         app.set('view engine', 'ejs');
 
         //************ get ************ 
+        app.get('/', async (req, res) => {
+            database.collection("items").find().toArray()
+                .then(results => {
+                    res.render('template.ejs', { items: results });
+                })
+                .catch(err => {
+                    console.log('Rendering homepage had error.');
+                    console.log(err);
+                    res.send(err);
+                })
+        })
+
         app.get('/:location', async (req, res) => {
             database.collection(req.params.location).find().toArray()
                 .then(results => {
