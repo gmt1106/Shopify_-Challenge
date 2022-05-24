@@ -10,3 +10,8 @@ Build an inventory tracking web application for a logistics company with a basic
 
 ## Replit
 https://replit.com/@gmt1106/ShopifyChallenge#.replit
+
+## Source
+* https://umbrellait.com/blog/how-to-build-a-simple-web-application-using-node-js/
+* https://zellwk.com/blog/crud-express-mongodb/
+* https://codepen.io/naikjavaid/pen/XPrpjr
