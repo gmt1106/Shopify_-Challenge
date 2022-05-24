@@ -4,7 +4,8 @@ Build an inventory tracking web application for a logistics company with a basic
 
 
 ## Instruction
-* Specify the location of the inventory in url. ex) http://localhost:4000/vancouver
+* Specify the location of the inventory in URL. ex) http://localhost:4000/vancouver
+* To change the URL in replit, click open in a new tab and change it. 
 * There are edit, delete, add new item button for the basic CRUD functionality. 
 * Refresh when you don't see the update of data immediately. 
 
